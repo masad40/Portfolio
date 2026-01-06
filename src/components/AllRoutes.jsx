@@ -19,7 +19,7 @@ const HomePage = () => {
       <Education></Education>
       <Services></Services>
       <Skills />
-      <Experience />
+
       <Projects />
       <Contact />
     </div>
@@ -105,6 +105,30 @@ export default function AllRoutes() {
           <PageWrapper>
             <PageLayout title="Get In Touch" subtitle="Let's work together to bring your ideas to life">
               <Contact />
+            </PageLayout>
+          </PageWrapper>
+        }
+      />
+      
+      {/* Education route */}
+      <Route
+        path="/education"
+        element={
+          <PageWrapper>
+            <PageLayout title="Education" subtitle="My academic background and achievements">
+              <Education />
+            </PageLayout>
+          </PageWrapper>
+        }
+      />
+
+      {/* Services route */}
+      <Route
+        path="/services"
+        element={
+          <PageWrapper>
+            <PageLayout title="Services" subtitle="What I can offer to help you succeed">
+              <Services />
             </PageLayout>
           </PageWrapper>
         }

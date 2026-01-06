@@ -2,16 +2,8 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useNavigate, useLocation } from "react-router-dom";
 import {
-  Menu,
-  X,
-  Home,
-  User,
-  Code,
-  Briefcase,
-  FolderOpen,
-  Mail,
-  GraduationCap,
-  Wrench,
+  Menu, X, Home, User, Code, FolderOpen,
+  Mail, GraduationCap, Wrench
 } from "lucide-react";
 
 export default function Navbar() {
@@ -20,15 +12,15 @@ export default function Navbar() {
   const navigate = useNavigate();
   const location = useLocation();
 
+  // 👇 One source of truth
   const navItems = [
-    { href: "#home", label: "Home", route: "/", icon: Home },
-    { href: "#about", label: "About", route: "/about", icon: User },
-    { href: "#education", label: "Education", route: "/education", icon: GraduationCap },
-    { href: "#services", label: "Services", route: "/services", icon: Wrench },
-    { href: "#skills", label: "Skills", route: "/skills", icon: Code },
-    { href: "#experience", label: "Experience", route: "/experience", icon: Briefcase },
-    { href: "#projects", label: "Projects", route: "/projects", icon: FolderOpen },
-    { href: "#contact", label: "Contact", route: "/contact", icon: Mail },
+    { id: "home", label: "Home", route: "/", icon: Home },
+    { id: "about", label: "About", route: "/about", icon: User },
+    { id: "education", label: "Education", route: "/education", icon: GraduationCap },
+    { id: "services", label: "Services", route: "/services", icon: Wrench },
+    { id: "skills", label: "Skills", route: "/skills", icon: Code },
+    { id: "projects", label: "Projects", route: "/projects", icon: FolderOpen },
+    { id: "contact", label: "Contact", route: "/contact", icon: Mail },
   ];
 
   useEffect(() => {
@@ -37,13 +29,22 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const handleNavigation = (item) => {
-    if (location.pathname === "/" && item.href.startsWith("#")) {
-      const el = document.querySelector(item.href);
-      if (el) el.scrollIntoView({ behavior: "smooth" });
+  // 👇 Scroll helper
+  const scrollToSection = (id) => {
+    const el = document.getElementById(id);
+    if (el) el.scrollIntoView({ behavior: "smooth" });
+  };
+
+  // 👇 Navigation logic (simple + reliable)
+  const handleNavigation = async (item) => {
+    // If already home page
+    if (item.route === "/" && location.pathname === "/") {
+      scrollToSection(item.id);
     } else {
-      item.href === "#home" ? navigate("/") : navigate(item.route);
+      await navigate(item.route);
+      if (item.route === "/") scrollToSection(item.id);
     }
+
     setIsOpen(false);
   };
 
@@ -59,10 +60,11 @@ export default function Navbar() {
     >
       <div className="mx-auto px-4 sm:px-6 lg:px-8 w-11/12">
         <div className="flex justify-between items-center h-16">
+
           {/* Logo */}
           <motion.div
             className="flex items-center cursor-pointer"
-            onClick={() => navigate("/")}
+            onClick={() => handleNavigation(navItems[0])}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
@@ -74,17 +76,15 @@ export default function Navbar() {
             </span>
           </motion.div>
 
-          {/* Desktop nav */}
+          {/* Desktop menu */}
           <div className="hidden md:flex items-center space-x-1">
             {navItems.map((item, index) => {
               const Icon = item.icon;
-              const isActive =
-                location.pathname === item.route ||
-                (location.pathname === "/" && item.href === "#home");
+              const isActive = location.pathname === item.route;
 
               return (
                 <motion.button
-                  key={item.href}
+                  key={item.id}
                   onClick={() => handleNavigation(item)}
                   className={`flex items-center px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
                     isActive
@@ -93,9 +93,7 @@ export default function Navbar() {
                   }`}
                   initial={{ opacity: 0, y: -20 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
+                  transition={{ duration: 0.4, delay: index * 0.05 }}
                 >
                   <Icon size={16} className="mr-2" />
                   {item.label}
@@ -104,7 +102,7 @@ export default function Navbar() {
             })}
           </div>
 
-          {/* Mobile button */}
+          {/* Mobile toggle */}
           <motion.button
             onClick={() => setIsOpen(!isOpen)}
             className="md:hidden p-2 rounded-lg text-gray-300 hover:text-cyan-400 hover:bg-white/5 transition-colors"
@@ -116,7 +114,7 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* Mobile menu */}
+      {/* Mobile drawer */}
       <AnimatePresence>
         {isOpen && (
           <>
@@ -124,7 +122,7 @@ export default function Navbar() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="fixed inset-0 bg-black/50 backdrop-blur-sm z-40 md:hidden"
+              className="fixed inset-0 bg-black/60 z-40 md:hidden"
               onClick={() => setIsOpen(false)}
             />
 
@@ -133,9 +131,7 @@ export default function Navbar() {
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
               transition={{ type: "spring", damping: 25, stiffness: 200 }}
-              className="fixed top-0 right-0 h-full w-80
-              bg-gradient-to-b from-gray-900 via-gray-900 to-gray-800
-              shadow-2xl z-50 md:hidden border-l border-white/10"
+              className="fixed top-0 right-0 h-full w-80 bg-gray-900 shadow-2xl z-50 border-l border-gray-700 md:hidden"
             >
               <div className="p-6">
                 <div className="flex items-center justify-between mb-8">
@@ -148,31 +144,26 @@ export default function Navbar() {
 
                   <button
                     onClick={() => setIsOpen(false)}
-                    className="p-2 rounded-lg text-gray-400 hover:text-white hover:bg-white/10 transition-colors"
+                    className="p-2 rounded-lg text-gray-400 hover:text-white hover:bg-white/10"
                   >
                     <X size={20} />
                   </button>
                 </div>
 
                 <nav className="space-y-2">
-                  {navItems.map((item, index) => {
+                  {navItems.map((item) => {
                     const Icon = item.icon;
-                    const isActive =
-                      location.pathname === item.route ||
-                      (location.pathname === "/" && item.href === "#home");
+                    const isActive = location.pathname === item.route;
 
                     return (
                       <motion.button
-                        key={item.href}
+                        key={item.id}
                         onClick={() => handleNavigation(item)}
-                        className={`w-full flex items-center px-4 py-3 rounded-lg text-left transition-all duration-200 ${
+                        className={`w-full flex items-center px-4 py-3 rounded-lg text-left transition-all ${
                           isActive
                             ? "bg-cyan-500/20 text-cyan-400 shadow-lg"
-                            : "text-white hover:bg-white/10"
+                            : "bg-blue-950 text-white hover:bg-white/10"
                         }`}
-                        initial={{ opacity: 0, x: 20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ delay: index * 0.1 }}
                         whileHover={{ x: 5 }}
                       >
                         <Icon size={20} className="mr-3" />

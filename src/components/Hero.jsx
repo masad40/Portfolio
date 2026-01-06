@@ -114,7 +114,8 @@ export default function Hero() {
               className="text-lg text-gray-400 leading-relaxed max-w-2xl mx-auto lg:mx-0"
             >
               I craft exceptional digital experiences with modern technologies. Specializing in
-              full-stack development with 4+ years of experience serving clients globally.
+              full-stac
+              k development with 1+ years of experience serving clients globally.
             </motion.p>
 
             {/* CTA Buttons */}
@@ -179,56 +180,76 @@ export default function Hero() {
             </motion.div>
           </motion.div>
 
-          {/* Profile Image */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.85 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="relative flex justify-center lg:justify-end"
-          >
-            <div className="relative">
-              {/* Animated Rings */}
-              <motion.div
-                className="absolute inset-0 rounded-full border-2 border-cyan-400/30"
-                animate={{ rotate: 360 }}
-                transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-                style={{ width: "110%", height: "110%", left: "-5%", top: "-5%" }}
-              />
-              <motion.div
-                className="absolute inset-0 rounded-full border-2 border-blue-500/20"
-                animate={{ rotate: -360 }}
-                transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
-                style={{ width: "130%", height: "130%", left: "-15%", top: "-15%" }}
-              />
+        {/* Profile Image */}
+<motion.div
+  initial={{ opacity: 0, scale: 0.85 }}
+  animate={{ opacity: 1, scale: 1 }}
+  transition={{ duration: 0.8, delay: 0.2 }}
+  className="relative flex justify-center lg:justify-end"
+>
+  <motion.div
+    className="relative group"
+    whileHover={{ scale: 1.03 }}
+    transition={{ duration: 0.3 }}
+  >
+    {/* Glow Pulse */}
+    <motion.div
+      className="absolute -inset-8 rounded-full bg-cyan-500/10 blur-3xl"
+      animate={{ opacity: [0.3, 0.6, 0.3] }}
+      transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+    />
 
-              {/* Profile Image */}
-              <motion.div
-                className="relative w-56 h-56 sm:w-64 sm:h-64 md:w-80 md:h-80 rounded-full overflow-hidden border-4 border-white/10 shadow-2xl mx-auto lg:mx-0"
-                whileHover={{ scale: 1.05 }}
-                transition={{ duration: 0.3 }}
-              >
-                <div className="absolute inset-0 bg-gradient-to-br from-cyan-400/20 to-blue-500/20" />
-                <img src={profile} alt="ASADUZZAMAN" className="w-full h-full object-cover" />
-              </motion.div>
+    {/* Animated Rings */}
+    <motion.div
+      className="absolute inset-0 rounded-full border-2 border-cyan-400/30"
+      animate={{ rotate: 360 }}
+      transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+      style={{ width: "110%", height: "110%", left: "-5%", top: "-5%" }}
+    />
+    <motion.div
+      className="absolute inset-0 rounded-full border-2 border-blue-500/20"
+      animate={{ rotate: -360 }}
+      transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
+      style={{ width: "130%", height: "130%", left: "-15%", top: "-15%" }}
+    />
 
-              {/* Floating Elements */}
-              <motion.div
-                className="absolute -top-4 -right-4 w-16 h-16 bg-gradient-to-r from-cyan-400 to-blue-500 rounded-lg flex items-center justify-center shadow-lg"
-                animate={{ y: [-10, 10, -10] }}
-                transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-              >
-                <span className="text-white font-bold text-xl">1+</span>
-              </motion.div>
+    {/* MAIN Image with Tilt + Parallax */}
+    <motion.div
+      className="relative w-56 h-56 sm:w-64 sm:h-64 md:w-80 md:h-80 rounded-full overflow-hidden border-4 border-white/10 shadow-2xl mx-auto lg:mx-0"
+      whileHover={{ rotateX: 6, rotateY: -6 }}
+      whileTap={{ scale: 0.97 }}
+      transition={{ type: "spring", stiffness: 120, damping: 10 }}
+    >
+      <div className="absolute inset-0 bg-gradient-to-br from-cyan-400/20 to-blue-500/20" />
+      <motion.img
+        src={profile}
+        alt="ASADUZZAMAN"
+        className="w-full h-full object-cover"
+        animate={{ scale: [1, 1.05, 1] }}
+        transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+      />
+    </motion.div>
 
-              <motion.div
-                className="absolute -bottom-4 -left-4 px-4 py-2 bg-white/10 backdrop-blur-md rounded-lg border border-white/20"
-                animate={{ y: [10, -10, 10] }}
-                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-              >
-                <span className="text-cyan-400 font-semibold text-sm">Available for work</span>
-              </motion.div>
-            </div>
-          </motion.div>
+    {/* Floating Badge */}
+    <motion.div
+      className="absolute -top-4 -right-4 w-16 h-16 bg-gradient-to-r from-cyan-400 to-blue-500 rounded-lg flex items-center justify-center shadow-lg"
+      animate={{ y: [-10, 10, -10], rotate: [0, 3, 0] }}
+      transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+    >
+      <span className="text-white font-bold text-xl">1y+</span>
+    </motion.div>
+
+    {/* Availability Badge */}
+    <motion.div
+      className="absolute -bottom-4 -left-4 px-4 py-2 bg-white/10 backdrop-blur-md rounded-lg border border-white/20"
+      animate={{ y: [10, -10, 10], opacity: [0.8, 1, 0.8] }}
+      transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+    >
+      <span className="text-cyan-400 font-semibold text-sm">Available for work</span>
+    </motion.div>
+  </motion.div>
+</motion.div>
+
         </div>
       </div>
 
