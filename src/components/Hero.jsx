@@ -3,7 +3,7 @@ import { ReactTyped } from "react-typed";
 import { Download, ArrowRight, Github, Linkedin, Mail, ExternalLink } from "lucide-react";
 import { useState, useEffect } from "react";
 import profile from "../assets/photo.jpg";
-import resume from "../../public/Profile (1).pdf";
+
 
 export default function Hero() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
@@ -126,7 +126,7 @@ export default function Hero() {
               className="flex flex-wrap justify-center lg:justify-start gap-4"
             >
               <motion.a
-                href={resume}
+                href="https://drive.google.com/uc?export=download&id=1rf41ytgX9v3Sz8xTgr3AM72Ed0wVRe9C"
                 download
                 className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-cyan-500 to-blue-500 text-white font-semibold rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 group"
                 whileHover={{ scale: 1.05, y: -2 }}

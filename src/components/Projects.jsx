@@ -11,7 +11,7 @@ const projects = [
     image: "https://i.ibb.co.com/bjHyzjTN/blood-donation.png",
     category: "Full Stack",
     technologies: ["React", "Stripe", "Node.js", "MongoDB", "Express"],
-    liveUrl: "https://blood-care-a11.netlify.app/",
+    liveUrl: "https://bloodcare-11.netlify.app/",
     githubUrl: "https://github.com/masad40/Blood-Care-client",
     featured: true
   },
@@ -177,13 +177,13 @@ const ProjectCard = ({ project, index, isInView }) => {
               </a>
             </div>
             
-            <motion.button
+            {/* <motion.button
               className="flex items-center text-sm text-cyan-400 hover:text-cyan-300 transition-colors duration-300 group/btn"
               whileHover={{ x: 5 }}
             >
-              View Details
-              <ArrowRight size={16} className="ml-1 group-hover/btn:translate-x-1 transition-transform duration-300" />
-            </motion.button>
+              View etails
+              <ArroDwRight size={16} className="ml-1 group-hover/btn:translate-x-1 transition-transform duration-300" />
+            </motion.button> */}
           </div>
         </div>
       </div>
